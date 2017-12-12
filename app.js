@@ -24,7 +24,6 @@ geocode.geocodeAddress(argv.address, (errorMessage, addressResults) => {
             if (error) {
                 console.log(error);
             } else {
-                console.log(JSON.stringify(weatherResults, undefined, 5));
                 console.log(`The current temperature is ${weatherResults.temperature}. It feels like ${weatherResults.apparentTemperature}`)
             }
         });

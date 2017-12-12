@@ -22,12 +22,20 @@ axios.get(geocodeUrl)
         if (response.data.status === 'ZERO_RESULTS') {
             throw new Error('Unable to find that address');
         }
-        console.log(JSON.stringify(response.data, undefined, 2));
+        var k = '234320bd7e6b1e301ad287b87dd03767';
+        var latitude = response.data.results[0].geometry.location.lat; 
+        var longitude = response.data.results[0].geometry.location.lng;
+        var weatherUrl = `https://api.darksky.net/forecast/${k}/${latitude},${longitude}?units=si`;
+
+        return axios.get(weatherUrl)
+    })
+    .then( (response) => {
+        console.log(`The current temperature is ${response.data.currently.temperature}. It feels like ${response.data.currently.apparentTemperature}`)
     })
     .catch((e) => {
         if (e.code === 'ENOTFOUND') {
             console.log('Unable to connect to APi servers');
-        } else{
+        } else {
             console.log(e.message);
         }
     });
